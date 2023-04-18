@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CategoryService {
+public class CategoryManagerService {
 
     private final CategoryRepository categoryRepository;
 
-    public CategoryService(CategoryRepository categoryRepository) {
+    public CategoryManagerService(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
 
@@ -61,9 +61,9 @@ public class CategoryService {
         Optional<Category> categories = categoryRepository.findById(id);
 
         if(categories.isEmpty()){
-            return categories.get();
+            return null;
         } else {
-            return new Category();
+            return categories.get();
         }
     }
 

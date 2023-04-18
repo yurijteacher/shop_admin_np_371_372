@@ -3,14 +3,14 @@ package ua.com.shop.shop_admin_np_371_372.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import ua.com.shop.shop_admin_np_371_372.service.CategoryService;
+import ua.com.shop.shop_admin_np_371_372.service.CategoryManagerService;
 
 @Controller
 public class HomeController {
-    private  final CategoryService categoryService;
+    private  final CategoryManagerService categoryService;
 
     @Autowired
-    public HomeController(CategoryService categoryService) {
+    public HomeController(CategoryManagerService categoryService) {
         this.categoryService = categoryService;
     }
 
@@ -22,12 +22,12 @@ public class HomeController {
 
     @GetMapping("/products")
     public String getProductAdmin(){
-        return "product";
+        return "productAdminPage";
     }
 
     @GetMapping("/categories")
     public String getCategoryAdmin(){
-        return "category";
+        return "categoryAdminPage";
     }
 
     @GetMapping("/orders")
