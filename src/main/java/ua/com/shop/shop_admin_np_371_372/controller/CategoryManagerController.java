@@ -83,7 +83,7 @@ public class CategoryManagerController {
             categoryService.deleteAllCategory();
             return "redirect:/categorymanager";
         } else {
-            redirectAttributes.addAttribute("Error", "Перед видаленням категорій, будь ласка, видаліть всю продукцію з категорії");
+            redirectAttributes.addAttribute("Error", "Перед видаленням категорій, будь ласка, видаліть всю продукцію з категорій");
             return "redirect:/categorymanager";
         }
     }

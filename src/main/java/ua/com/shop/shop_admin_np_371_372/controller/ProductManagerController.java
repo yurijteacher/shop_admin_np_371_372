@@ -61,6 +61,7 @@ public class ProductManagerController {
 
 
         BigDecimal price = new BigDecimal(Double.valueOf(price1.replaceAll("[^0-9]","")));
+
         productService.updateProduct(id,name, descr, image, price, category);
 
         return "redirect:/productmanager";
