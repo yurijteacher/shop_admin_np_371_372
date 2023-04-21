@@ -3,6 +3,10 @@ package ua.com.shop.shop_admin_np_371_372.service;
 
 import com.mysql.cj.xdevapi.Client;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ua.com.shop.shop_admin_np_371_372.entity.Customer;
 import ua.com.shop.shop_admin_np_371_372.entity.Role;
@@ -15,7 +19,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Service
-public class UserManagerService {
+public class UserManagerService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final CustomerRepository customerRepository;
@@ -41,9 +45,11 @@ public class UserManagerService {
 
     public Users saveNewUserToDB(Users user){
 
-        user.setRoleSet(Collections.singleton(new Role(1L, "ROLE_User")));
+        user.setRoles(Collections.singleton(new Role(1L, "ROLE_User")));
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
 
-//        User user1 = userRepository.save(user);
+
+//        Users user1 = userRepository.save(user);
 //        return user1;
 
         return userRepository.save(user);
@@ -52,5 +58,19 @@ public class UserManagerService {
 
     public List<Customer> getCustomerList() {
         return customerRepository.findAll();
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+        Users user1 = userRepository.findByUsername(username);
+
+        System.out.println(user1);
+
+        if(user1==null){
+            throw new UsernameNotFoundException("User not found!!!");
+        }
+
+        return user1;
     }
 }
